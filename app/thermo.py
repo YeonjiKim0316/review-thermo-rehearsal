@@ -1,16 +1,16 @@
-"""리뷰 온도 규칙 3개. 규칙은 SPEC.md 2장을 보세요. (세션 2에서 AI와 함께 구현)"""
+"""리뷰 온도 규칙 3개 (SPEC.md 2장)."""
 
 
 def to_label(score: float) -> str:
-    """score를 "positive" / "negative" 로 바꾼다. 규칙: SPEC.md 2장."""
-    raise NotImplementedError("to_label")
+    """score가 0.5 이상이면 "positive", 아니면 "negative"."""
+    return "positive" if score >= 0.5 else "negative"
 
 
 def to_temperature(score: float) -> float:
-    """score를 리뷰 온도(0~100)로 바꾼다. 규칙: SPEC.md 2장."""
-    raise NotImplementedError("to_temperature")
+    """score x 100 을 소수점 첫째 자리까지 반올림."""
+    return round(score * 100, 1)
 
 
 def is_mismatch(rating: int, label: str) -> bool:
-    """별점과 내용이 반대인지 알려 준다. 규칙: SPEC.md 2장."""
-    raise NotImplementedError("is_mismatch")
+    """별점 4~5인데 negative, 또는 별점 1~2인데 positive이면 True. 별점 3은 항상 False."""
+    return (rating >= 4 and label == "negative") or (rating <= 2 and label == "positive")
